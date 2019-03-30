@@ -1,6 +1,7 @@
 public class Board {
     private int width;
     private int height;
+    private char[][] boardMatrix;
     public Board(int width, int height){
         if(width <= 7)
             this.width = 7;
@@ -11,6 +12,8 @@ public class Board {
         }
         this.width = width;
         this.height = height;
+
+        this.boardMatrix = new char[this.width][this.height];
     }
 
     public int getWidth() {
@@ -27,5 +30,9 @@ public class Board {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public char[][] getBoardMatrix() {
+        return boardMatrix;
     }
 }
