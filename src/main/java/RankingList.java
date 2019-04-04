@@ -13,7 +13,7 @@ public class RankingList {
 
     public void loadPlayersFromCsv(){
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("../resources/" + FILE_NAME).getFile());
+        File file = new File(classLoader.getResource(FILE_NAME).getFile());
         try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -28,7 +28,7 @@ public class RankingList {
 
     public void saveListToCsv(){
         ClassLoader classLoader = getClass().getClassLoader();
-        try (PrintWriter writer = new PrintWriter(new File(classLoader.getResource("../resources/" + FILE_NAME).getFile()))) {
+        try (PrintWriter writer = new PrintWriter(new File(classLoader.getResource(FILE_NAME).getFile()))) {
 
             StringBuilder sb = new StringBuilder();
 

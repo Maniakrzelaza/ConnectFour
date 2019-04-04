@@ -1,7 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,9 +11,13 @@ public class RankingListTest {
 
     private RankingList sutRankingList;
 
+    @BeforeEach
+    public void setUp(){
+        RankingList.FILE_NAME = "TestRankingList.csv";
+    }
+
     @Test
     public void shouldHaveProperSize(){
-        RankingList.FILE_NAME = "TestRankingList.csv";
 
         sutRankingList = new RankingList();
 
@@ -27,8 +28,6 @@ public class RankingListTest {
 
     @Test
     public void shouldSavePlayers(){
-        RankingList.FILE_NAME = "TestRankingList.csv";
-
         sutRankingList = new RankingList();
 
         sutRankingList.addPlayer(new Player("Harry", 51));
@@ -51,9 +50,7 @@ public class RankingListTest {
 
     @AfterEach
     public void tearDown(){
-        RankingList.FILE_NAME = "TestRankingList.csv";
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("../resources/TestRankingList.csv").getFile());
+        File file = new File(getClass().getClassLoader().getResource("TestRankingList.csv").getFile());
         try (PrintWriter writer = new PrintWriter(new File(file.getAbsolutePath()))) {
             writer.write("Adam,5\n" +
                     "Monika, 78\n" +
