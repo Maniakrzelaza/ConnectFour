@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +23,13 @@ public class BoardTest {
                 () -> assertThat(sutBoard.getBoardMatrix().length).isEqualTo(8),
                 () -> assertThat(sutBoard.getBoardMatrix()[1].length).isEqualTo(7)
         );
+    }
+
+    @Test
+    public void shouldThorowWhenArgsAreLessOrEqual0(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Board(0, -1);
+        });
     }
 
     @AfterEach
