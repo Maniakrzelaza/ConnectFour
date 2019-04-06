@@ -16,6 +16,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void shouldSetProperColor(){
+        sutPlayer = new Player("name");
+        sutPlayer.setColor('R');
+        assertThat(sutPlayer.getColor()).isEqualTo('R');
+    }
+
+    @Test
     public void shouldChangeName(){
         sutPlayer = new Player("name");
         sutPlayer.setName("newName");

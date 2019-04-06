@@ -1,6 +1,7 @@
 public class Player {
     private String name;
     private int numberOfWins;
+    private Character color;
 
     public Player(String name, int numberOfWins){
         this.name = name;
@@ -34,5 +35,13 @@ public class Player {
     @Override
     public String toString(){
         return "Name: " +  this.name + " Wins: " +  this.numberOfWins;
+    }
+
+    public Character getColor() {
+        return color;
+    }
+
+    public void setColor(Character color) {
+        this.color = color;
     }
 }

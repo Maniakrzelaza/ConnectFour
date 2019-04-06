@@ -57,8 +57,10 @@ public class RankingList {
 
     public String showPlayers(){
         StringBuilder result = new StringBuilder();
+        int index = 0;
         for (Player player : this.list.values()) {
-            result.append(player.toString() + "\n");
+            result.append(index + ". " + player.toString() + "\n");
+            index++;
         }
         return result.delete(result.length() - 1, result.length()).toString();
     }

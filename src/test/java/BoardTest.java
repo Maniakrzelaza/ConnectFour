@@ -9,6 +9,29 @@ public class BoardTest {
     Board sutBoard;
 
     @Test
+    public void testAllWinConditions(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('R'), 2);
+        sutBoard.addTokenToBoard(new Token('R'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('R'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 5);
+        sutBoard.addTokenToBoard(new Token('R'), 5);
+        sutBoard.addTokenToBoard(new Token('G'), 5);
+        sutBoard.addTokenToBoard(new Token('G'), 5);
+
+        assertThat(sutBoard.hasPlayerWon(5, 3, 'G'));
+    }
+
+    @Test
     public void shouldTellTrueWhenPlayerWonByDiagonalTopToBottom(){
         sutBoard = new Board(7, 6);
         sutBoard.addTokenToBoard(new Token('G'), 1);

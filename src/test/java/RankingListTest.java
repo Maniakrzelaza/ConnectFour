@@ -55,9 +55,9 @@ public class RankingListTest {
 
         String list = sutRankingList.showPlayers();
 
-        assertEquals("Name: Adam Wins: 5\n" +
-                "Name: Robert Wins: 0\n" +
-                "Name: Monika Wins: 78",list);
+        assertEquals("0. Name: Adam Wins: 5\n" +
+                "1. Name: Robert Wins: 0\n" +
+                "2. Name: Monika Wins: 78",list);
     }
 
     @AfterEach

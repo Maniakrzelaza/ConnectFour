@@ -25,7 +25,7 @@ public class Board {
     }
 
     public void addTokenToBoard(Token token, int posX) {
-        if (posX < 0 || posX >= this.width || this.isColumnFull(posX) || isBoardFull()) {
+        if (this.isLegalMove(posX)) {
             throw new IllegalArgumentException();
         } else {
             this.boardMatrix.get(posX).add(token);
@@ -34,6 +34,10 @@ public class Board {
 
     public boolean isColumnFull(int column) {
         return this.boardMatrix.get(column).size() == this.height;
+    }
+
+    public boolean isLegalMove(int posX){
+        return posX < 0 || posX >= this.width || this.isColumnFull(posX) || isBoardFull();
     }
 
     public boolean isBoardFull() {
