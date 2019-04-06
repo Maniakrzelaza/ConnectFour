@@ -54,4 +54,12 @@ public class RankingList {
             list.put(player.getName(), player);
         }
     }
+
+    public String showPlayers(){
+        StringBuilder result = new StringBuilder();
+        for (Player player : this.list.values()) {
+            result.append(player.toString() + "\n");
+        }
+        return result.delete(result.length() - 1, result.length()).toString();
+    }
 }

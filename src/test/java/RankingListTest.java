@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RankingListTest {
 
@@ -46,6 +47,17 @@ public class RankingListTest {
         Assertions.assertThrows(NullPointerException.class, () -> {
             sutRankingList = new RankingList();
         });
+    }
+
+    @Test
+    public void shouldShowPlayersListProperly(){
+        sutRankingList = new RankingList();
+
+        String list = sutRankingList.showPlayers();
+
+        assertEquals("Name: Adam Wins: 5\n" +
+                "Name: Robert Wins: 0\n" +
+                "Name: Monika Wins: 78",list);
     }
 
     @AfterEach

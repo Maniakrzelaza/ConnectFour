@@ -3,11 +3,80 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
     Board sutBoard;
+
+    @Test
+    public void shouldTellTrueWhenPlayerWonByVertical(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+
+        assertTrue(sutBoard.isVerticalWin(4, 0, 'G'));
+    }
+
+    @Test
+    public void shouldTellFalseWhenPlayerDidNotWonByVertical(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('R'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+
+        assertFalse(sutBoard.isVerticalWin(4, 0, 'G'));
+    }
+
+    @Test
+    public void shouldHaveComputeHighestPositionOfWinMeasureWhenResultIsOutsideBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostTopPosition(3, 4)).isEqualTo(5);
+    }
+
+    @Test
+    public void shouldHaveComputeHighestPositionOfWinMeasureWhenResultIsWithinBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostTopPosition(3, 0)).isEqualTo(3);
+    }
+
+    @Test
+    public void shouldHaveComputeLowestPositionOfWinMeasureWhenResultIsOutsideBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostBottomPosition(3, 1)).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldHaveComputeLowestPositionOfWinMeasureWhenResultIsWithinBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostBottomPosition(3, 4)).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldHaveComputeMostLeftPositionOfWinMeasureWhenResultIsOutsideBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostLeftPosition(2, 1)).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldHaveComputeMostLeftPositionOfWinMeasureWhenResultIsWithinBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostLeftPosition(4, 4)).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldHaveComputeMostRightPositionOfWinMeasureWhenResultIsOutsideBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostRightPosition(1, 1)).isEqualTo(4);
+    }
+
+    @Test
+    public void shouldHaveComputeMostRightPositionOfWinMeasureWhenResultIsWithinBoard(){
+        sutBoard = new Board(7, 6);
+        assertThat(sutBoard.getMostRightPosition(4, 4)).isEqualTo(6);
+    }
 
     @Test
     public void shouldHaveProperSizeWhenArgsAreProper() {

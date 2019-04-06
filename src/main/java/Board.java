@@ -46,6 +46,52 @@ public class Board {
         return result;
     }
 
+    public boolean hasPlayerWon(){
+        boolean result = false;
+        return result;
+    }
+
+    public boolean isVerticalWin(int x, int y, Character ch){
+        int leftPosition = this.getMostLeftPosition(x, y);
+        int rightPosition = this.getMostRightPosition(x, y);
+        int bigestSeriesCounter = 0;
+        int tempCounter = 0;
+        for(int i = leftPosition; i < rightPosition; i++){
+            if(this.get(i, y).equals(ch)){
+                tempCounter += 1;
+                bigestSeriesCounter = Math.max(tempCounter, bigestSeriesCounter);
+            } else {
+                tempCounter = 0;
+            }
+        }
+        return bigestSeriesCounter >= 4;
+    }
+
+    public Character get(int x, int y){
+        try{
+            return this.boardMatrix.get(x).get(y).getColor();
+        } catch (IndexOutOfBoundsException e){
+            return 'E';
+        }
+    }
+
+    public int getMostLeftPosition(int x, int y){
+        return x - 3 < 0 ? 0 : x - 3;
+    }
+
+    public int getMostRightPosition(int x, int y){
+        return x + 3 >= this.width ? this.width - 1 : x + 3;
+    }
+
+    public int getMostTopPosition(int x, int y){
+        return y + 3 >= this.height ? this.height - 1 : y + 3;
+
+    }
+
+    public int getMostBottomPosition(int x, int y){
+        return y - 3 < 0 ? 0 : y - 3;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -61,7 +107,6 @@ public class Board {
             result.append("\n");
 
         }
-
         return result.delete(result.length() - 1, result.length()).toString();
     }
 
