@@ -46,17 +46,63 @@ public class Board {
         return result;
     }
 
-    public boolean hasPlayerWon(){
-        boolean result = false;
-        return result;
+    public boolean hasPlayerWon(int x, int y, Character ch){
+        return this.isHorizontalWin(x, y, ch) ||
+                this.isVerticalWin(x, y, ch) ||
+                this.isDiagonalBottomToTop(x, y, ch) ||
+                this.isDiagonalTopToBottom(x, y, ch);
+    }
+
+    public boolean isDiagonalTopToBottom(int x, int y, Character ch){
+        int bigestSeriesCounter = 0;
+        int tempCounter = 0;
+        for(int i = -3; i < 4; i++){
+            if(this.get(x + i, y - i).equals(ch)){
+                tempCounter += 1;
+                bigestSeriesCounter = Math.max(tempCounter, bigestSeriesCounter);
+            } else {
+                tempCounter = 0;
+            }
+        }
+        return bigestSeriesCounter >= 4;
+    }
+
+    public boolean isDiagonalBottomToTop(int x, int y, Character ch){
+        int bigestSeriesCounter = 0;
+        int tempCounter = 0;
+        for(int i = -3; i < 4; i++){
+            if(this.get(x + i, y + i).equals(ch)){
+                tempCounter += 1;
+                bigestSeriesCounter = Math.max(tempCounter, bigestSeriesCounter);
+            } else {
+                tempCounter = 0;
+            }
+        }
+        return bigestSeriesCounter >= 4;
     }
 
     public boolean isVerticalWin(int x, int y, Character ch){
+        int topPosition = this.getMostTopPosition(x, y);
+        int bottomPosition = this.getMostBottomPosition(x, y);
+        int bigestSeriesCounter = 0;
+        int tempCounter = 0;
+        for(int i = bottomPosition; i <= topPosition; i++){
+            if(this.get(x, i).equals(ch)){
+                tempCounter += 1;
+                bigestSeriesCounter = Math.max(tempCounter, bigestSeriesCounter);
+            } else {
+                tempCounter = 0;
+            }
+        }
+        return bigestSeriesCounter >= 4;
+    }
+
+    public boolean isHorizontalWin(int x, int y, Character ch){
         int leftPosition = this.getMostLeftPosition(x, y);
         int rightPosition = this.getMostRightPosition(x, y);
         int bigestSeriesCounter = 0;
         int tempCounter = 0;
-        for(int i = leftPosition; i < rightPosition; i++){
+        for(int i = leftPosition; i <= rightPosition; i++){
             if(this.get(i, y).equals(ch)){
                 tempCounter += 1;
                 bigestSeriesCounter = Math.max(tempCounter, bigestSeriesCounter);

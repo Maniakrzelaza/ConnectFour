@@ -9,25 +9,115 @@ public class BoardTest {
     Board sutBoard;
 
     @Test
-    public void shouldTellTrueWhenPlayerWonByVertical(){
+    public void shouldTellTrueWhenPlayerWonByDiagonalTopToBottom(){
         sutBoard = new Board(7, 6);
         sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
         sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
         sutBoard.addTokenToBoard(new Token('G'), 3);
         sutBoard.addTokenToBoard(new Token('G'), 4);
 
-        assertTrue(sutBoard.isVerticalWin(4, 0, 'G'));
+        assertTrue(sutBoard.isDiagonalTopToBottom(4, 0, 'G'));
+    }
+
+    @Test
+    public void shouldTellFalseWhenPlayerWonByDiagonalTopToBottom(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('R'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+
+        assertFalse(sutBoard.isDiagonalTopToBottom(4, 0, 'G'));
+    }
+
+    @Test
+    public void shouldTellTrueWhenPlayerWonByDiagonalBottomToTop(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+
+        assertTrue(sutBoard.isDiagonalBottomToTop(1, 0, 'G'));
+    }
+
+    @Test
+    public void shouldTellFalseWhenPlayerWonByDiagonalBottomToTop(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('R'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+
+        assertFalse(sutBoard.isDiagonalBottomToTop(1, 0, 'G'));
+    }
+
+    @Test
+    public void shouldTellTrueWhenPlayerWonByVertical(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+
+        assertTrue(sutBoard.isVerticalWin(1, 2, 'G'));
     }
 
     @Test
     public void shouldTellFalseWhenPlayerDidNotWonByVertical(){
         sutBoard = new Board(7, 6);
         sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('R'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+
+        assertFalse(sutBoard.isVerticalWin(1, 4, 'G'));
+    }
+
+    @Test
+    public void shouldTellTrueWhenPlayerWonByHorizontall(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
+        sutBoard.addTokenToBoard(new Token('G'), 2);
+        sutBoard.addTokenToBoard(new Token('G'), 3);
+        sutBoard.addTokenToBoard(new Token('G'), 4);
+
+        assertTrue(sutBoard.isHorizontalWin(4, 0, 'G'));
+    }
+
+    @Test
+    public void shouldTellFalseWhenPlayerDidNotWonByHorizontal(){
+        sutBoard = new Board(7, 6);
+        sutBoard.addTokenToBoard(new Token('G'), 1);
         sutBoard.addTokenToBoard(new Token('G'), 2);
         sutBoard.addTokenToBoard(new Token('R'), 3);
         sutBoard.addTokenToBoard(new Token('G'), 4);
 
-        assertFalse(sutBoard.isVerticalWin(4, 0, 'G'));
+        assertFalse(sutBoard.isHorizontalWin(4, 0, 'G'));
     }
 
     @Test
