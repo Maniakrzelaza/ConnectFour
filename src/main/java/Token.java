@@ -12,4 +12,9 @@ public class Token {
     public Character getColor() {
         return color;
     }
+
+    @Override
+    public String toString(){
+        return color.toString();
+    }
 }
