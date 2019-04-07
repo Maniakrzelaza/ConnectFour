@@ -8,6 +8,8 @@ public class ConnectFour {
     }
 
     public static void menu() {
+        int option;
+
         System.out.println("========Connect Four========");
         System.out.println("What do you want to do?");
         System.out.println("1. New Game");
@@ -15,11 +17,8 @@ public class ConnectFour {
         System.out.println("3. Add Player");
         System.out.println("0. END");
 
-        int option;
-
         System.out.println("What do you want to do?");
         option = reader.nextInt();
-
 
         switch (option) {
             case 1:

@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -143,10 +146,18 @@ public class BoardTest {
         assertFalse(sutBoard.isHorizontalWin(4, 0, 'G'));
     }
 
-    @Test
-    public void shouldHaveComputeHighestPositionOfWinMeasureWhenResultIsOutsideBoard(){
-        sutBoard = new Board(7, 6);
-        assertThat(sutBoard.getMostTopPosition(3, 4)).isEqualTo(5);
+    @ParameterizedTest
+    @CsvFileSource(resources = "/data.csv", numLinesToSkip = 1, delimiter = ',')
+    public void shouldComputeHighestLegalPosition(int width, int height, int posX, int posY, int result){
+        sutBoard = new Board(width, height);
+        assertThat(sutBoard.getMostTopPosition(posX, posY)).isEqualTo(result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"7,6,3,4,5", "7,6,3,5,5", "7,6,1,4,5"})
+    public void shouldHaveComputeHighestPositionOfWinMeasureWhenResultIsOutsideBoard(int  width, int height, int posX, int posY, int result){
+        sutBoard = new Board(width, height);
+        assertThat(sutBoard.getMostTopPosition(posX, posY)).isEqualTo(result);
     }
 
     @Test
@@ -201,7 +212,7 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldThorowWhenArgsAreLessOrEqual0() {
+    public void shouldThrowWhenArgsAreLessOrEqual0() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new Board(0, -1);
         });
@@ -253,12 +264,13 @@ public class BoardTest {
         sutBoard.addTokenToBoard(new Token('R'), 3);
         this.fillColumn(6);
         assertEquals(
-                "G           G \n" +
-                        "G           G \n" +
-                        "G           G \n" +
-                        "G     R     G \n" +
-                        "G G   R     G \n" +
-                        "G R G R     G ",
+                "| G |   |   |   |   |   | G |\n" +
+                        "| G |   |   |   |   |   | G |\n" +
+                        "| G |   |   |   |   |   | G |\n" +
+                        "| G |   |   | R |   |   | G |\n" +
+                        "| G | G |   | R |   |   | G |\n" +
+                        "| G | R | G | R |   |   | G |\n" +
+                        "| 0 | 1 | 2 | 3 | 4 | 5 | 6 |",
                 sutBoard.toString()
         );
     }

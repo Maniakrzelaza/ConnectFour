@@ -19,7 +19,10 @@ public class PlayerTest {
     public void shouldSetProperColor(){
         sutPlayer = new Player("name");
         sutPlayer.setColor('R');
-        assertThat(sutPlayer.getColor()).isEqualTo('R');
+        assertAll(
+                () -> assertThat(sutPlayer.getColor()).isUpperCase(),
+                () -> assertThat(sutPlayer.getColor().toString()).endsWith("R")
+        );
     }
 
     @Test

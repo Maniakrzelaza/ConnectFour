@@ -7,6 +7,8 @@ public class Board {
     private List<List<Token>> boardMatrix;
 
     public Board(int width, int height) {
+        this.width = width;
+        this.height = height;
         if (width <= 7)
             this.width = 7;
         if (height <= 6)
@@ -14,8 +16,7 @@ public class Board {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException();
         }
-        this.width = width;
-        this.height = height;
+
 
         this.boardMatrix = new ArrayList<List<Token>>();
 
@@ -148,16 +149,20 @@ public class Board {
         for (int i = this.height - 1; i >= 0; i--) {
             for (List<Token> list : this.boardMatrix) {
                 try {
-                    result.append(list.get(i).toString());
+                    result.append("| " + list.get(i).toString());
                 } catch (IndexOutOfBoundsException e) {
-                    result.append(" ");
+                    result.append("|  ");
                 }
                 result.append(" ");
             }
-            result.append("\n");
+            result.append("|\n");
 
         }
-        return result.delete(result.length() - 1, result.length()).toString();
+        for(int i = 0; i < this.width; i++){
+            result.append("| " + i + " ");
+        }
+        result.append("|");
+        return result.toString();
     }
 
     public int getWidth() {

@@ -22,7 +22,6 @@ public class Game {
         width = reader.nextInt();
         System.out.println("What height of board?");
         height = reader.nextInt();
-
         this.gameBoard = new Board(width, height);
         this.choosePlayers();
         this.startGame();
