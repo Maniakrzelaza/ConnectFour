@@ -1,7 +1,8 @@
 plugins {
     id 'java'
+    
 }
-
+apply plugin: 'jacoco'
 group 'com.maniakrzelaza'
 version '1.0-SNAPSHOT'
 
@@ -25,6 +26,25 @@ dependencies {
             'org.junit.vintage:junit-vintage-engine:5.4.0'
     )
 }
+jacocoTestReport{
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco/html"
+    }
+    executionData = files('build/jacoco/test.exec')
+}
+
+
+
+
+
+
+
+
+
+
 
 test {
     useJUnitPlatform()
