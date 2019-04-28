@@ -8,10 +8,13 @@ public class Game {
     private boolean isOver = false;
     private Board gameBoard;
     private RankingList rankingList;
-
+    private GameSaver gameSaver;
+    private int turn;
     public Game() {
         this.reader = new Scanner(System.in);
         this.rankingList = new RankingList();
+        this.turn = 0;
+        this.gameSaver = new GameSaver();
     }
 
     public void prepareGame() {
@@ -28,25 +31,31 @@ public class Game {
     }
 
     public void startGame(){
-        int column;
+        int column =-1;
         Player currentPlayer = null;
+        String line = "";
         while(!this.isOver){
             System.out.println(this.gameBoard.toString());
-            if(currentPlayerFlag){
-                currentPlayer = firstPlayer;
-            } else {
-                currentPlayer = secondPlayer;
-            }
+            currentPlayer = currentPlayerFlag ? firstPlayer : secondPlayer;
             do{
-                System.out.println(currentPlayer.getName() + " Select column ");
-                column = reader.nextInt();
-                if(this.gameBoard.isLegalMove(column)){
-                    System.out.println("Choose legal column");
+                System.out.println(currentPlayer.getName() + " Select column or s to save");
+                if(reader.hasNextInt()){
+                    column = reader.nextInt();
+                    if(this.gameBoard.isLegalMove(column)){
+                        System.out.println("Choose legal column");
+                    }
+                } else{
+                    line = reader.next();
+                    if(line.contains("s")){
+                        gameSaver.saveGame(new GameState(this.turn, this.gameBoard));
+                    }
                 }
+
             } while (this.gameBoard.isLegalMove(column));
             this.gameBoard.addTokenToBoard(new Token(currentPlayer.getColor()), column);
             this.isOver = this.gameBoard.hasPlayerWon(column, this.gameBoard.getBoardMatrix().get(column).size() - 1, currentPlayer.getColor());
             currentPlayerFlag = !currentPlayerFlag;
+            this.turn++;
         }
         System.out.println(currentPlayer.getName() + " has won");
         currentPlayer.win();
