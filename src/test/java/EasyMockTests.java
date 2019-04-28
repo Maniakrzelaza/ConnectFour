@@ -2,16 +2,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.easymock.EasyMock.mock;
-import static org.easymock.EasyMock.verify;
+import static org.easymock.EasyMock.*;
 
 public class EasyMockTests {
     @Test
     public void TestEasyMock(){
         List mockedList = mock(List.class);
-
+        expect(mockedList.add("one")).andReturn(true);
+        replay(mockedList);
         mockedList.add("one");
-        mockedList.clear();
-        verify(mockedList.add("one"));
+        verify(mockedList);
     }
 }
