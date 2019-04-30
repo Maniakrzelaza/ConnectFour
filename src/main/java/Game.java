@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class Game {
-    Scanner reader;
-    Player firstPlayer;
-    Player secondPlayer;
+    public Scanner reader;
+    private Player firstPlayer;
+    private Player secondPlayer;
     private boolean currentPlayerFlag = true;
     private boolean isOver = false;
     private Board gameBoard;

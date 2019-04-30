@@ -1,20 +1,20 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Scanner;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class MockitoTests {
 
     @Test
-    public void TestMock(){
-        List mockedList = mock(List.class);
-
-        mockedList.add("one");
-        mockedList.clear();
-
-        verify(mockedList).add("one");
-        verify(mockedList).clear();
+    public void ConnectFourShouldCallAddPlayerMethod(){
+        Scanner mockScanner = mock(Scanner.class);
+        when(mockScanner.nextInt())
+                .thenReturn(3)
+                .thenReturn(0);
+        ConnectFour.reader = mockScanner;
+        ConnectFour.menu();
+        verify(mockScanner, times(1)).next();
     }
 }
