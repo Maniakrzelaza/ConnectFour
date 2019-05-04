@@ -22,7 +22,7 @@ public class RankingListTest {
 
         sutRankingList = new RankingList();
 
-        HashMap<String, Player> list = sutRankingList.list;
+        HashMap<String, Player> list = sutRankingList.getList();
 
         assertThat(list.values().size()).isEqualTo(3);
     }
@@ -37,7 +37,7 @@ public class RankingListTest {
 
         sutRankingList.loadPlayersFromCsv();
 
-        assertThat(sutRankingList.list.values().size()).isEqualTo(4);
+        assertThat(sutRankingList.getList().values().size()).isEqualTo(4);
     }
 
     @Test

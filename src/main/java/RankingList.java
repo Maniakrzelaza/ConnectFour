@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.HashMap;
 
-public class RankingList {
-    public HashMap<String, Player> list;
+public class RankingList implements IRankingList{
+    private HashMap<String, Player> list;
 
     public static String FILE_NAME = "RankingList.csv";
 
@@ -63,5 +63,8 @@ public class RankingList {
             index++;
         }
         return result.delete(result.length() - 1, result.length()).toString();
+    }
+    public HashMap<String, Player> getList(){
+        return this.list;
     }
 }

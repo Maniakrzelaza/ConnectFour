@@ -7,7 +7,7 @@ public class Game {
     private boolean currentPlayerFlag = true;
     private boolean isOver = false;
     private Board gameBoard;
-    private RankingList rankingList;
+    private IRankingList rankingList;
     private GameSaver gameSaver;
     private int turn;
     public Game() {
@@ -74,26 +74,26 @@ public class Game {
         do {
             System.out.println("Choose Player 1?");
             player1 = reader.nextInt();
-            if(player1 < 0 || player1 > rankingList.list.values().size()){
+            if(player1 < 0 || player1 > rankingList.getList().values().size()){
                 System.out.println("Player does not exists");
             }
-        } while (player1 < 0 || player1 > rankingList.list.values().size());
+        } while (player1 < 0 || player1 > rankingList.getList().values().size());
 
 
         do {
             System.out.println("Choose Player 2");
             player2 = reader.nextInt();
-            if(player2 < 0 || player2 > rankingList.list.values().size()){
+            if(player2 < 0 || player2 > rankingList.getList().values().size()){
                 System.out.println("Player does not exists");
             }
             if(player1 == player2){
                 System.out.println("Choose different player");
             }
-        } while (player2 < 0 || player1 > rankingList.list.values().size() || player1 == player2);
+        } while (player2 < 0 || player1 > rankingList.getList().values().size() || player1 == player2);
 
-        firstPlayer = (Player) rankingList.list.values().toArray()[player1];
+        firstPlayer = (Player) rankingList.getList().values().toArray()[player1];
         firstPlayer.setColor('G');
-        secondPlayer = (Player) rankingList.list.values().toArray()[player2];
+        secondPlayer = (Player) rankingList.getList().values().toArray()[player2];
         secondPlayer.setColor('R');
     }
     public Board getGameBoard(){

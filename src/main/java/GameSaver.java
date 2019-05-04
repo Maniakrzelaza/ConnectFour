@@ -3,7 +3,7 @@ import org.jongo.MongoCollection;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 
-public class GameSaver {
+public class GameSaver implements Saver {
     MongoCollection gameStates;
     public GameSaver(){
         @SuppressWarnings({ "deprecation", "resource" })
@@ -11,8 +11,7 @@ public class GameSaver {
         gameStates = new Jongo(db).getCollection("gameStates");
     }
     public void saveGame(GameState gameState){
-        gameStates.save("{name: 'Joe', age: 18}");
-       // gameStates.save(gameState);
+        gameStates.save(gameState);
     }
     public GameState loadGame(int name){
         return gameStates.findOne("{_id: #", name).as(GameState.class);

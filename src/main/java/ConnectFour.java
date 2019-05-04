@@ -1,10 +1,8 @@
 import java.util.Scanner;
 
-import static java.lang.System.exit;
-
 public class ConnectFour {
     public static Scanner reader = new Scanner(System.in);
-
+    public static RankingList rankingList = new RankingList();
     public static void main(String args[]) {
         ConnectFour.menu();
     }
@@ -38,7 +36,7 @@ public class ConnectFour {
     }
 
     public static void newGame() {
-        if(new RankingList().list.values().size() >= 2){
+        if(rankingList.getList().values().size() >= 2){
             Game game = new Game();
             game.prepareGame();
         } else {
