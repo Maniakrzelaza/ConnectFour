@@ -49,6 +49,9 @@ public class Game {
                     if(line.contains("s")){
                         gameSaver.saveGame(new GameState(this.turn, this.gameBoard));
                     }
+                    if(line.contains("e")){
+                        return;
+                    }
                 }
 
             } while (this.gameBoard.isLegalMove(column));
@@ -93,5 +96,7 @@ public class Game {
         secondPlayer = (Player) rankingList.list.values().toArray()[player2];
         secondPlayer.setColor('R');
     }
-
+    public Board getGameBoard(){
+        return this.gameBoard;
+    }
 }
