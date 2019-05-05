@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Game {
     public IScanner reader;
-    private Player firstPlayer;
+    public Player firstPlayer;
     private Player secondPlayer;
     private boolean currentPlayerFlag = true;
     private boolean isOver = false;
@@ -117,7 +117,7 @@ public class Game {
         return this.gameBoard;
     }
     public void setGameSaver(Saver gameSaver){ this.gameSaver = gameSaver; }
-    public void setRankingList(RankingList rankingList){ this.rankingList = rankingList; }
+    public void setRankingList(IRankingList rankingList){ this.rankingList = rankingList; }
 
     public void setGameBoard(Board gameBoard) {
         this.gameBoard = gameBoard;

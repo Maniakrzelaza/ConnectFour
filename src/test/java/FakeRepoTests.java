@@ -54,7 +54,7 @@ public class FakeRepoTests {
         assertThat(fakeGameSaver.getFakeList()).hasSize(4);
     }
     @Test
-    public void shouldTest(){
+    public void shouldShowPlayerList(){
         setUpStreams();
         IRankingList fakeRankingList = new FakeRankingList();
         ((FakeRankingList) fakeRankingList).seedData();
@@ -70,6 +70,33 @@ public class FakeRepoTests {
                 "1. Name: Player1 Wins: 1\n" +
                 "2. Name: Player3 Wins: 3");
         restoreStreams();
+    }
+    @Test
+    public void shouldLoadPlayersWithProperData(){
+        IRankingList fakeRankingList = new FakeRankingList();
+        fakeGameSaver = new FakeGameSaver();
+        fakeGameSaver.seedData();
+        ((FakeRankingList) fakeRankingList).seedData();
+        FakeScannerWrapper fakeScannerWrapper = new FakeScannerWrapper();
+        Queue<Integer> inputs = new LinkedList<>();
+        inputs.add(0);
+        inputs.add(1);
+        Queue<Boolean> haxNexts = new LinkedList<>();
+        haxNexts.add(false);
+        Queue<String> nexts = new LinkedList<>();
+        nexts.add("e");
+        fakeScannerWrapper.nextInts = inputs;
+        fakeScannerWrapper.nexts = nexts;
+        fakeScannerWrapper.hasNexts = haxNexts;
+        ConnectFour.gameSaver = fakeGameSaver;
+        ConnectFour.loadGameFromDb();
+        ConnectFour.rankingList = fakeRankingList;
+        ConnectFour.game.setRankingList(fakeRankingList);
+        ConnectFour.game.reader = fakeScannerWrapper;
+        ConnectFour.game.setGameSaver(fakeGameSaver);
+        ConnectFour.game.prepareLoadedGame();
+
+        assertThat(ConnectFour.game.firstPlayer.getName()).isEqualTo("Player2");
     }
 
     @AfterEach
