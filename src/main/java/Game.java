@@ -113,4 +113,8 @@ public class Game {
     }
     public void setGameSaver(GameSaver gameSaver){ this.gameSaver = gameSaver; }
     public void setRankingList(RankingList rankingList){ this.rankingList = rankingList; }
+
+    public int getTurn() {
+        return turn;
+    }
 }

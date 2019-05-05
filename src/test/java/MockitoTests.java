@@ -38,11 +38,7 @@ public class MockitoTests {
         //Arrange
         Scanner mockScanner = mock(Scanner.class);
         when(mockScanner.nextInt())
-                .thenReturn(7)
-                .thenReturn(6)
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(0);
+                .thenReturn(7, 6, 0, 1, 0);
         when(mockScanner.next())
                 .thenReturn("e");
         Game sutGame = new Game();
@@ -106,11 +102,7 @@ public class MockitoTests {
         //Arrange
         Scanner mockScanner = mock(Scanner.class);
         when(mockScanner.nextInt())
-                .thenReturn(7)
-                .thenReturn(6)
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(0);
+                .thenReturn(7, 6, 0, 1, 0);
         when(mockScanner.next())
                 .thenReturn("s")
                 .thenReturn("e");
@@ -158,17 +150,7 @@ public class MockitoTests {
         setUpStreams();
         Scanner mockScanner = mock(Scanner.class);
         when(mockScanner.nextInt())
-                .thenReturn(7)
-                .thenReturn(6)
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(0)
-                .thenReturn(1)
-                .thenReturn(0);
+                .thenReturn(7, 6, 0, 1, 0, 1, 0, 1, 0, 1, 0);
         when(mockScanner.hasNextInt())
                 .thenReturn(true);
         Scanner mockAppScanner = mock(Scanner.class);
@@ -203,33 +185,30 @@ public class MockitoTests {
         //Arrange
         Scanner mockGameScanner = mock(Scanner.class);
         when(mockGameScanner.nextInt())
-                .thenReturn(7, 6, 0, 1, 0, 1, 0, 1, 0, 1, 0);
-        Scanner mockAppScanner = mock(Scanner.class);
-        when(mockAppScanner.nextInt())
-                .thenReturn(0);
+                .thenReturn( 0, 1);
+        when(mockGameScanner.next())
+                .thenReturn("e");
         when(mockGameScanner.hasNextInt())
-                .thenReturn(true);
+                .thenReturn(false);
         RankingList mockRankingList = mock(RankingList.class);
-        doNothing().when(mockRankingList).saveListToCsv();
         HashMap<String, Player> fakeList = new HashMap<>();
         fakeList.put("Player1", new Player("Player1", 1));
         fakeList.put("Player2", new Player("Player2", 2));
         when(mockRankingList.getList())
                 .thenReturn(fakeList);
-        GameSaver mockGameSaver = mock(GameSaver.class);
-        doNothing().when(mockGameSaver).saveGame(any(GameState.class));
-        ConnectFour.reader = mockAppScanner;
-        Game sutGame = new Game();
+        Game sutGame = new Game(new GameState(4, new Board(10,15)));
         sutGame.reader = mockGameScanner;
         sutGame.setRankingList(mockRankingList);
-        sutGame.setGameSaver(mockGameSaver);
-
         //Act
-        sutGame.prepareGame();
+        sutGame.prepareLoadedGame();
 
         //Assert/Verify
         //restoreStreams();
-        verify(mockRankingList, times(1)).saveListToCsv();
+        assertAll(
+                () -> assertThat(sutGame.getGameBoard().getHeight()).isEqualTo(15),
+                () -> assertThat(sutGame.getGameBoard().getWidth()).isEqualTo(10),
+                () -> assertThat(sutGame.getTurn()).isEqualTo(4)
+        );
     }
 
     private void setUpStreams() {
