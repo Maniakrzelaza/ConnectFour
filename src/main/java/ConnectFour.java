@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class ConnectFour {
     public static Scanner reader = new Scanner(System.in);
-    public static RankingList rankingList = new RankingList();
+    public static IRankingList rankingList = new RankingList();
     public static Saver gameSaver = new GameSaver();
     public static Game game;
     public static void main(String args[]) {

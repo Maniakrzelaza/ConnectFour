@@ -39,6 +39,8 @@ public class MockitoTests {
         Scanner mockScanner = mock(Scanner.class);
         when(mockScanner.nextInt())
                 .thenReturn(7, 6, 0, 1, 0);
+        when(mockScanner.hasNextInt())
+                .thenReturn(false);
         when(mockScanner.next())
                 .thenReturn("e");
         Game sutGame = new Game();
@@ -46,6 +48,7 @@ public class MockitoTests {
 
         //Act
         sutGame.prepareGame();
+        sutGame.saveGame();
 
         //Assert/Verify
         verify(mockScanner, times(4)).nextInt();
@@ -87,7 +90,7 @@ public class MockitoTests {
         //Arrange
         GameSaver sutGameSaver = new GameSaver();
         MongoCollection mockGameStates = mock(MongoCollection.class);
-        when(mockGameStates.save(any(Object.class))).thenAnswer(jiinvocation -> null);
+        when(mockGameStates.save(any(Object.class))).thenAnswer(invocation -> null);
         sutGameSaver.gameStates = mockGameStates;
 
         //Act

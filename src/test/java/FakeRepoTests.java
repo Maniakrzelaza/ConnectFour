@@ -22,7 +22,10 @@ public class FakeRepoTests {
     public void shouldLoadFromFakeRepo() {
         fakeGameSaver = new FakeGameSaver();
         fakeGameSaver.seedData();
+        FakeRankingList fakeRankingList = new FakeRankingList();
+        fakeRankingList.seedData();
         ConnectFour.gameSaver = fakeGameSaver;
+        ConnectFour.rankingList = fakeRankingList;
         ConnectFour.loadGameFromDb();
         Game sutGame = ConnectFour.game;
         assertAll(
