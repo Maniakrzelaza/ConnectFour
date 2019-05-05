@@ -25,6 +25,10 @@ public class Game {
     }
 
     public void prepareGame(){
+        this.prepareBoard();
+        this.choosePlayers();
+    }
+    public void prepareBoard(){
         int width;
         int height;
 
@@ -33,8 +37,6 @@ public class Game {
         System.out.println("What height of board?");
         height = reader.nextInt();
         this.gameBoard = new Board(width, height);
-        this.choosePlayers();
-        this.startGame();
     }
 
     public void prepareLoadedGame(){
@@ -59,7 +61,7 @@ public class Game {
                 } else{
                     line = reader.next();
                     if(line.contains("s")){
-                        gameSaver.saveGame(new GameState(this.turn, this.gameBoard));
+                        this.saveGame();
                     }
                     if(line.contains("e")){
                         return;
@@ -78,6 +80,10 @@ public class Game {
         ConnectFour.menu();
     }
 
+    public void saveGame(){
+        gameSaver.saveGame(new GameState(this.turn, this.gameBoard));
+    }
+
     public void choosePlayers() {
         System.out.println(rankingList.showPlayers());
 
@@ -90,7 +96,6 @@ public class Game {
                 System.out.println("Player does not exists");
             }
         } while (player1 < 0 || player1 > rankingList.getList().values().size());
-
 
         do {
             System.out.println("Choose Player 2");
@@ -111,8 +116,12 @@ public class Game {
     public Board getGameBoard(){
         return this.gameBoard;
     }
-    public void setGameSaver(GameSaver gameSaver){ this.gameSaver = gameSaver; }
+    public void setGameSaver(Saver gameSaver){ this.gameSaver = gameSaver; }
     public void setRankingList(RankingList rankingList){ this.rankingList = rankingList; }
+
+    public void setGameBoard(Board gameBoard) {
+        this.gameBoard = gameBoard;
+    }
 
     public int getTurn() {
         return turn;

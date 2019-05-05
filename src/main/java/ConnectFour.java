@@ -66,15 +66,18 @@ public class ConnectFour {
         rankingList.saveListToCsv();
         ConnectFour.menu();
     }
-    public static void loadGame() {
+    public static void loadGameFromDb(){
         GameState loadedGameState = gameSaver.loadGame();
         if(rankingList.getList().values().size() >= 2){
             game = new Game(loadedGameState);
             gameSaver.deleteLastSession();
-            game.prepareLoadedGame();
         } else {
             System.out.println("Not enough players to play. Create more players");
             ConnectFour.menu();
         }
+    }
+    public static void loadGame() {
+        loadGameFromDb();
+        game.prepareLoadedGame();
     }
 }

@@ -27,8 +27,12 @@ public class FakeGameSaver implements Saver {
         fakeList.clear();
     }
     public void seedData(){
-        fakeList.add(new GameState(5, new Board()));
-        fakeList.add(new GameState(2, new Board()));
-        fakeList.add(new GameState(3, new Board()));
+        fakeList.add(new GameState(5, new Board(10, 15)));
+        fakeList.add(new GameState(2, new Board(7,16)));
+        fakeList.add(new GameState(3, new Board(18,19)));
+    }
+
+    public List<GameState> getFakeList() {
+        return fakeList;
     }
 }

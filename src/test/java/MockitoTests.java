@@ -114,7 +114,7 @@ public class MockitoTests {
 
         //Act
         sutGame.prepareGame();
-
+        sutGame.startGame();
         //Assert/Verify
         verify(mockGameSaver, times(1)).saveGame(any(GameState.class));
     }
@@ -173,6 +173,7 @@ public class MockitoTests {
 
         //Act
         sutGame.prepareGame();
+        sutGame.startGame();
 
         //Assert/Verify
         verify(mockRankingList, times(1)).saveListToCsv();
