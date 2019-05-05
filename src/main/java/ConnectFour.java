@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ConnectFour {
-    public static Scanner reader = new Scanner(System.in);
+    public static IScanner reader = new ScannerWrapper();
     public static IRankingList rankingList = new RankingList();
     public static Saver gameSaver = new GameSaver();
     public static Game game;
@@ -10,7 +10,7 @@ public class ConnectFour {
     }
 
     public static void menu() {
-        int option;
+        int option = 0;
 
         System.out.println("========Connect Four========");
         System.out.println("What do you want to do?");
@@ -32,6 +32,7 @@ public class ConnectFour {
                 break;
             case 3:
                 ConnectFour.addPlayer();
+                ConnectFour.menu();
                 break;
             case 4:
                 ConnectFour.loadGame();
@@ -63,7 +64,6 @@ public class ConnectFour {
 
         rankingList.addPlayer(new Player(name));
         rankingList.saveListToCsv();
-        ConnectFour.menu();
     }
     public static void loadGameFromDb(){
         GameState loadedGameState = gameSaver.loadGame();

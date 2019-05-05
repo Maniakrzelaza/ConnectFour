@@ -1,15 +1,23 @@
 import org.junit.jupiter.api.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class FakeRepoTests {
+    private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private PrintStream originalOut = System.out;
+    private PrintStream originalErr = System.err;
     FakeGameSaver fakeGameSaver;
     @BeforeAll
     public static void prepare(){
-        ConnectFour.reader = new Scanner(System.in);
+        ConnectFour.reader = new ScannerWrapper();
         ConnectFour.rankingList = new RankingList();
     }
     @BeforeEach
@@ -45,11 +53,24 @@ public class FakeRepoTests {
 
         assertThat(fakeGameSaver.getFakeList()).hasSize(4);
     }
-    /*@Test
+    @Test
     public void shouldTest(){
+        setUpStreams();
         IRankingList fakeRankingList = new FakeRankingList();
         ((FakeRankingList) fakeRankingList).seedData();
-    }*/
+        FakeScannerWrapper fakeScannerWrapper = new FakeScannerWrapper();
+        Queue<Integer> inputs = new LinkedList<>();
+        inputs.add(2);
+        inputs.add(0);
+        fakeScannerWrapper.nextInts = inputs;
+        ConnectFour.rankingList = fakeRankingList;
+        ConnectFour.reader = fakeScannerWrapper;
+        ConnectFour.menu();
+        assertThat(outContent.toString()).containsSubsequence("0. Name: Player2 Wins: 2\n" +
+                "1. Name: Player1 Wins: 1\n" +
+                "2. Name: Player3 Wins: 3");
+        restoreStreams();
+    }
 
     @AfterEach
     public void tearDown(){
@@ -57,7 +78,16 @@ public class FakeRepoTests {
     }
     @AfterAll
     public static void backToNormalState(){
-        ConnectFour.reader = new Scanner(System.in);
+        ConnectFour.reader = new ScannerWrapper();
         ConnectFour.rankingList = new RankingList();
+    }
+    private void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    private void restoreStreams() {
+        System.setOut(originalOut);
+        System.setErr(originalErr);
     }
 }

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Game {
-    public Scanner reader;
+    public IScanner reader;
     private Player firstPlayer;
     private Player secondPlayer;
     private boolean currentPlayerFlag = true;
@@ -11,13 +11,13 @@ public class Game {
     private Saver gameSaver;
     private int turn;
     public Game() {
-        this.reader = new Scanner(System.in);
+        this.reader = new ScannerWrapper();
         this.rankingList = new RankingList();
         this.turn = 0;
         this.gameSaver = new GameSaver();
     }
     public Game(GameState gameState){
-        this.reader = new Scanner(System.in);
+        this.reader = new ScannerWrapper();
         this.rankingList = new RankingList();
         this.gameSaver = new GameSaver();
         this.turn = gameState.getTurn();
