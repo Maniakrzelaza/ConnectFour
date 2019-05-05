@@ -100,4 +100,5 @@ public class Game {
         return this.gameBoard;
     }
     public void setGameSaver(GameSaver gameSaver){ this.gameSaver = gameSaver; }
+    public void setRankingList(RankingList rankingList){ this.rankingList = rankingList; }
 }
