@@ -5,6 +5,7 @@ public class ConnectFour {
     public static IRankingList rankingList = new RankingList();
     public static Saver gameSaver = new GameSaver();
     public static Game game;
+
     public static void main(String args[]) {
         ConnectFour.menu();
     }
@@ -39,11 +40,13 @@ public class ConnectFour {
                 break;
             case 0:
                 break;
+            default:
+                throw new IllegalArgumentException("There is no such option");
         }
     }
 
     public static void newGame() {
-        if(rankingList.getList().values().size() >= 2){
+        if (rankingList.getList().values().size() >= 2) {
             game = new Game();
             game.prepareGame();
         } else {
@@ -65,9 +68,10 @@ public class ConnectFour {
         rankingList.addPlayer(new Player(name));
         rankingList.saveListToCsv();
     }
-    public static void loadGameFromDb(){
+
+    public static void loadGameFromDb() {
         GameState loadedGameState = gameSaver.loadGame();
-        if(rankingList.getList().values().size() >= 2){
+        if (rankingList.getList().values().size() >= 2) {
             game = new Game(loadedGameState);
             gameSaver.deleteLastSession();
         } else {
@@ -75,6 +79,7 @@ public class ConnectFour {
             ConnectFour.menu();
         }
     }
+
     public static void loadGame() {
         loadGameFromDb();
         game.prepareLoadedGame();

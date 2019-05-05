@@ -69,24 +69,22 @@ public class MockitoTests {
         when(mockScanner.nextInt())
                 .thenReturn(2)
                 .thenReturn(0);
-        RankingList mockRankingList = mock(RankingList.class);
-        when(mockRankingList.showPlayers())
-                .thenReturn("0. Name: Kacper Wins: 2\n" +
-                        "1. Name: null Wins: 0\n" +
-                        "2. Name: Robert Wins: 1");
+        RankingList spyRankingList = spy(RankingList.class);
+        spyRankingList.getList().clear();
+        spyRankingList.addPlayer(new Player("Player1", 1));
+        spyRankingList.addPlayer(new Player("Player2", 2));
 
         ConnectFour.reader = mockScanner;
-        ConnectFour.rankingList = mockRankingList;
+        ConnectFour.rankingList = spyRankingList;
 
         //Act
         ConnectFour.menu();
 
         //Assert/Verify
         verify(mockScanner, times(2)).nextInt();
-        verify(mockRankingList, times(1)).showPlayers();
-        assertThat(outContent.toString()).contains("0. Name: Kacper Wins: 2\n" +
-                "1. Name: null Wins: 0\n" +
-                "2. Name: Robert Wins: 1");
+        verify(spyRankingList, times(1)).showPlayers();
+        assertThat(outContent.toString()).contains("0. Name: Player2 Wins: 2\n" +
+                "1. Name: Player1 Wins: 1");
         restoreStreams();
     }
     @Test

@@ -14,7 +14,11 @@ public class GameSaver implements Saver {
         gameStates.save(gameState);
     }
     public GameState loadGame(){
-        return gameStates.findOne().orderBy("{turn: -1}").as(GameState.class);
+        GameState result = gameStates.findOne().orderBy("{turn: -1}").as(GameState.class);
+        if(result == null){
+            throw new IllegalArgumentException();
+        }
+        return result;
     }
     public void deleteLastSession(){
         gameStates.remove("{}");

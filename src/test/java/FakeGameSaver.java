@@ -15,7 +15,7 @@ public class FakeGameSaver implements Saver {
     @Override
     public GameState loadGame() {
         if(fakeList.size() == 0){
-            throw new NegativeArraySizeException();
+            throw new IllegalArgumentException();
         }
         return fakeList.stream()
                 .max(Comparator.comparingInt(GameState::getTurn))

@@ -99,6 +99,98 @@ public class FakeRepoTests {
         assertThat(ConnectFour.game.firstPlayer.getName()).isEqualTo("Player2");
     }
 
+    @Test
+    public void shouldThrowExceptionWhenThereIsNoSavedGameStates(){
+        IRankingList fakeRankingList = new FakeRankingList();
+        fakeGameSaver = new FakeGameSaver();
+        ((FakeRankingList) fakeRankingList).seedData();
+        FakeScannerWrapper fakeScannerWrapper = new FakeScannerWrapper();
+        Queue<Integer> inputs = new LinkedList<>();
+        inputs.add(4);
+        fakeScannerWrapper.nextInts = inputs;
+        ConnectFour.gameSaver = fakeGameSaver;
+        ConnectFour.rankingList = fakeRankingList;
+        ConnectFour.reader = fakeScannerWrapper;
+
+        Assertions.assertThrows(IllegalArgumentException.class, ConnectFour::menu);
+    }
+    @Test
+    public void shouldThrowExceptionWhenWrongMenuOptionWas(){
+        IRankingList fakeRankingList = new FakeRankingList();
+        fakeGameSaver = new FakeGameSaver();
+        ((FakeRankingList) fakeRankingList).seedData();
+        FakeScannerWrapper fakeScannerWrapper = new FakeScannerWrapper();
+        Queue<Integer> inputs = new LinkedList<>();
+        inputs.add(7667);
+        fakeScannerWrapper.nextInts = inputs;
+        ConnectFour.reader = fakeScannerWrapper;
+
+        Assertions.assertThrows(IllegalArgumentException.class, ConnectFour::menu);
+    }
+
+    @Test
+    public void shouldTryToValidateColumn(){
+        setUpStreams();
+        IRankingList fakeRankingList = new FakeRankingList();
+        fakeGameSaver = new FakeGameSaver();
+        fakeGameSaver.seedData();
+        ((FakeRankingList) fakeRankingList).seedData();
+        FakeScannerWrapper fakeScannerWrapper = new FakeScannerWrapper();
+        Queue<Integer> inputs = new LinkedList<>();
+        inputs.add(0);
+        inputs.add(1);
+        inputs.add(100);
+        Queue<Boolean> haxNexts = new LinkedList<>();
+        haxNexts.add(true);
+        haxNexts.add(false);
+        Queue<String> nexts = new LinkedList<>();
+        nexts.add("e");
+        fakeScannerWrapper.nextInts = inputs;
+        fakeScannerWrapper.nexts = nexts;
+        fakeScannerWrapper.hasNexts = haxNexts;
+        ConnectFour.gameSaver = fakeGameSaver;
+        ConnectFour.loadGameFromDb();
+        ConnectFour.rankingList = fakeRankingList;
+        ConnectFour.game.setRankingList(fakeRankingList);
+        ConnectFour.game.reader = fakeScannerWrapper;
+        ConnectFour.game.setGameSaver(fakeGameSaver);
+        ConnectFour.game.prepareLoadedGame();
+
+        assertThat(outContent.toString()).containsOnlyOnce("Choose legal column");
+        backToNormalState();
+    }
+    @Test
+    public void shouldTryToValidatePlayerChoice(){
+        setUpStreams();
+        IRankingList fakeRankingList = new FakeRankingList();
+        fakeGameSaver = new FakeGameSaver();
+        fakeGameSaver.seedData();
+        ((FakeRankingList) fakeRankingList).seedData();
+        FakeScannerWrapper fakeScannerWrapper = new FakeScannerWrapper();
+        Queue<Integer> inputs = new LinkedList<>();
+        inputs.add(0);
+        inputs.add(0);
+        inputs.add(-5);
+        inputs.add(1);
+        Queue<String> nexts = new LinkedList<>();
+        nexts.add("e");
+        fakeScannerWrapper.nextInts = inputs;
+        fakeScannerWrapper.nexts = nexts;
+        ConnectFour.gameSaver = fakeGameSaver;
+        ConnectFour.loadGameFromDb();
+        ConnectFour.rankingList = fakeRankingList;
+        ConnectFour.game.setRankingList(fakeRankingList);
+        ConnectFour.game.reader = fakeScannerWrapper;
+        ConnectFour.game.setGameSaver(fakeGameSaver);
+        ConnectFour.game.choosePlayers();
+
+        assertAll(
+                () -> assertThat(outContent.toString()).containsOnlyOnce("Choose different player"),
+                () -> assertThat(outContent.toString()).containsOnlyOnce("Player does not exists")
+        );
+        backToNormalState();
+    }
+
     @AfterEach
     public void tearDown(){
         fakeGameSaver = null;
