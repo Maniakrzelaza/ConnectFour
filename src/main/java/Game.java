@@ -16,8 +16,15 @@ public class Game {
         this.turn = 0;
         this.gameSaver = new GameSaver();
     }
+    public Game(GameState gameState){
+        this.reader = new Scanner(System.in);
+        this.rankingList = new RankingList();
+        this.gameSaver = new GameSaver();
+        this.turn = gameState.getTurn();
+        this.gameBoard = gameState.getBoard();
+    }
 
-    public void prepareGame() {
+    public void prepareGame(){
         int width;
         int height;
 
@@ -26,6 +33,11 @@ public class Game {
         System.out.println("What height of board?");
         height = reader.nextInt();
         this.gameBoard = new Board(width, height);
+        this.choosePlayers();
+        this.startGame();
+    }
+
+    public void prepareLoadedGame(){
         this.choosePlayers();
         this.startGame();
     }

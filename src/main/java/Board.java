@@ -24,6 +24,9 @@ public class Board {
             this.boardMatrix.add(new ArrayList<Token>());
         }
     }
+    public Board(){
+
+    }
 
     public void addTokenToBoard(Token token, int posX) {
         if (this.isLegalMove(posX)) {

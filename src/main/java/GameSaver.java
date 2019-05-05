@@ -13,7 +13,10 @@ public class GameSaver implements Saver {
     public void saveGame(GameState gameState){
         gameStates.save(gameState);
     }
-    public GameState loadGame(int name){
-        return gameStates.findOne("{_id: #", name).as(GameState.class);
+    public GameState loadGame(){
+        return gameStates.findOne().orderBy("{turn: -1}").as(GameState.class);
+    }
+    public void deleteLastSession(){
+        gameStates.remove("{}");
     }
 }

@@ -1,14 +1,10 @@
 import org.jongo.MongoCollection;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.verification.Times;
-import org.mockito.stubbing.Answer;
-import org.mockito.stubbing.Stubber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -152,8 +148,8 @@ public class MockitoTests {
         //Assert/Verify
         verify(mockScanner, times(2)).nextInt();
         verify(mockRankingList, times(1)).getList();
-        assertThat(outContent.toString()).contains("Not enough players to play. Create more players");
         restoreStreams();
+        assertThat(outContent.toString()).contains("Not enough players to play. Create more players");
     }
 
     @Test
@@ -175,6 +171,10 @@ public class MockitoTests {
                 .thenReturn(0);
         when(mockScanner.hasNextInt())
                 .thenReturn(true);
+        Scanner mockAppScanner = mock(Scanner.class);
+        when(mockAppScanner.nextInt())
+                .thenReturn(0);
+        ConnectFour.reader = mockAppScanner;
         RankingList mockRankingList = mock(RankingList.class);
         doNothing().when(mockRankingList).saveListToCsv();
         HashMap<String, Player> fakeList = new HashMap<>();
@@ -196,6 +196,40 @@ public class MockitoTests {
         verify(mockRankingList, times(1)).saveListToCsv();
         assertThat(outContent.toString()).contains("has won");
         restoreStreams();
+    }
+
+    @Test
+    public void gameShouldLoadGameProperly() {
+        //Arrange
+        Scanner mockGameScanner = mock(Scanner.class);
+        when(mockGameScanner.nextInt())
+                .thenReturn(7, 6, 0, 1, 0, 1, 0, 1, 0, 1, 0);
+        Scanner mockAppScanner = mock(Scanner.class);
+        when(mockAppScanner.nextInt())
+                .thenReturn(0);
+        when(mockGameScanner.hasNextInt())
+                .thenReturn(true);
+        RankingList mockRankingList = mock(RankingList.class);
+        doNothing().when(mockRankingList).saveListToCsv();
+        HashMap<String, Player> fakeList = new HashMap<>();
+        fakeList.put("Player1", new Player("Player1", 1));
+        fakeList.put("Player2", new Player("Player2", 2));
+        when(mockRankingList.getList())
+                .thenReturn(fakeList);
+        GameSaver mockGameSaver = mock(GameSaver.class);
+        doNothing().when(mockGameSaver).saveGame(any(GameState.class));
+        ConnectFour.reader = mockAppScanner;
+        Game sutGame = new Game();
+        sutGame.reader = mockGameScanner;
+        sutGame.setRankingList(mockRankingList);
+        sutGame.setGameSaver(mockGameSaver);
+
+        //Act
+        sutGame.prepareGame();
+
+        //Assert/Verify
+        //restoreStreams();
+        verify(mockRankingList, times(1)).saveListToCsv();
     }
 
     private void setUpStreams() {

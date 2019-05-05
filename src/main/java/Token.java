@@ -8,6 +8,9 @@ public class Token {
             throw new IllegalArgumentException();
         }
     }
+    public Token(){
+
+    }
 
     public Character getColor() {
         return color;

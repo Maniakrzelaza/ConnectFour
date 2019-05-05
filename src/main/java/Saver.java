@@ -1,4 +1,5 @@
 public interface Saver{
     void saveGame(GameState gameState);
-    GameState loadGame(int name);
+    GameState loadGame();
+    void deleteLastSession();
 }

@@ -6,6 +6,9 @@ public class GameState {
         this.setTurn(turn);
         this.setBoard(board);
     }
+    public GameState(){
+
+    }
 
     public int getTurn() {
         return turn;
