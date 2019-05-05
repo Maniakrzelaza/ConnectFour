@@ -40,6 +40,7 @@ public class MockitoTests {
         when(mockScanner.nextInt())
                 .thenReturn(7, 6, 0, 1, 0);
         when(mockScanner.hasNextInt())
+                .thenReturn(true)
                 .thenReturn(false);
         when(mockScanner.next())
                 .thenReturn("e");
@@ -48,10 +49,10 @@ public class MockitoTests {
 
         //Act
         sutGame.prepareGame();
-        sutGame.saveGame();
+        sutGame.startGame();
 
         //Assert/Verify
-        verify(mockScanner, times(4)).nextInt();
+        verify(mockScanner, times(5)).nextInt();
         assertAll(
                 () -> assertThat(sutGame.getGameBoard().getHeight()).isEqualTo(6),
                 () -> assertThat(sutGame.getGameBoard().getWidth()).isEqualTo(7)
