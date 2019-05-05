@@ -8,7 +8,7 @@ public class Game {
     private boolean isOver = false;
     private Board gameBoard;
     private IRankingList rankingList;
-    private GameSaver gameSaver;
+    private Saver gameSaver;
     private int turn;
     public Game() {
         this.reader = new Scanner(System.in);

@@ -181,7 +181,7 @@ public class MockitoTests {
     }
 
     @Test
-    public void gameShouldLoadGameProperly() {
+    public void loadedGameShouldHaveProperValues() {
         //Arrange
         Scanner mockGameScanner = mock(Scanner.class);
         when(mockGameScanner.nextInt())

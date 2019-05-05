@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class ConnectFour {
     public static Scanner reader = new Scanner(System.in);
     public static RankingList rankingList = new RankingList();
-    public static GameSaver gameSaver = new GameSaver();
+    public static Saver gameSaver = new GameSaver();
+    public static Game game;
     public static void main(String args[]) {
         ConnectFour.menu();
     }
@@ -42,7 +43,7 @@ public class ConnectFour {
 
     public static void newGame() {
         if(rankingList.getList().values().size() >= 2){
-            Game game = new Game();
+            game = new Game();
             game.prepareGame();
         } else {
             System.out.println("Not enough players to play. Create more players");
@@ -68,7 +69,7 @@ public class ConnectFour {
     public static void loadGame() {
         GameState loadedGameState = gameSaver.loadGame();
         if(rankingList.getList().values().size() >= 2){
-            Game game = new Game(loadedGameState);
+            game = new Game(loadedGameState);
             gameSaver.deleteLastSession();
             game.prepareLoadedGame();
         } else {
