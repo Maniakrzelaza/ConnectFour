@@ -20,6 +20,8 @@ public class FakeRepoTests {
 
     @Test
     public void shouldLoadFromFakeRepo() {
+        fakeGameSaver = new FakeGameSaver();
+        fakeGameSaver.seedData();
         ConnectFour.gameSaver = fakeGameSaver;
         ConnectFour.loadGameFromDb();
         Game sutGame = ConnectFour.game;
@@ -30,18 +32,21 @@ public class FakeRepoTests {
     }
     @Test
     public void shouldSaveGameStateProperly(){
-        Game sutGame = ConnectFour.game;
+        fakeGameSaver = new FakeGameSaver();
+        fakeGameSaver.seedData();
+        System.out.println(fakeGameSaver.loadGame().getTurn());
+        Game sutGame = new Game();
         sutGame.setGameSaver(fakeGameSaver);
         sutGame.setGameBoard(new Board());
         sutGame.saveGame();
 
         assertThat(fakeGameSaver.getFakeList()).hasSize(4);
     }
-    @Test
+    /*@Test
     public void shouldTest(){
         IRankingList fakeRankingList = new FakeRankingList();
         ((FakeRankingList) fakeRankingList).seedData();
-    }
+    }*/
 
     @AfterEach
     public void tearDown(){
