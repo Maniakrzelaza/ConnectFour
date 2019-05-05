@@ -99,4 +99,5 @@ public class Game {
     public Board getGameBoard(){
         return this.gameBoard;
     }
+    public void setGameSaver(GameSaver gameSaver){ this.gameSaver = gameSaver; }
 }

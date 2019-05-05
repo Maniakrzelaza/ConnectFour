@@ -4,7 +4,7 @@ import com.mongodb.DB;
 import com.mongodb.MongoClient;
 
 public class GameSaver implements Saver {
-    MongoCollection gameStates;
+    public MongoCollection gameStates;
     public GameSaver(){
         @SuppressWarnings({ "deprecation", "resource" })
         DB db = new MongoClient().getDB("saves");

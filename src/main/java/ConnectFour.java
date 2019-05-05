@@ -46,7 +46,7 @@ public class ConnectFour {
     }
 
     public static void showRankingList() {
-        System.out.println(new RankingList().showPlayers());
+        System.out.println(rankingList.showPlayers());
         ConnectFour.menu();
     }
 
