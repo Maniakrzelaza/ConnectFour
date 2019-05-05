@@ -37,6 +37,11 @@ public class FakeRepoTests {
 
         assertThat(fakeGameSaver.getFakeList()).hasSize(4);
     }
+    @Test
+    public void shouldTest(){
+        IRankingList fakeRankingList = new FakeRankingList();
+        ((FakeRankingList) fakeRankingList).seedData();
+    }
 
     @AfterEach
     public void tearDown(){

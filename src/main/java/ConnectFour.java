@@ -61,7 +61,6 @@ public class ConnectFour {
         String name = "";
         name = reader.next();
 
-        RankingList rankingList = new RankingList();
         rankingList.addPlayer(new Player(name));
         rankingList.saveListToCsv();
         ConnectFour.menu();
