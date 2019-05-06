@@ -3,8 +3,6 @@ import org.jongo.FindOne;
 import org.jongo.MongoCollection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.easymock.EasyMock.*;
 
 public class EasyMockTests {
@@ -28,9 +26,8 @@ public class EasyMockTests {
     }
 
     @Test
-    public void GameSaverShouldCallLoadOnMongoCollection() {
+    public void GameSaverShouldThrowWhenMongoCollectionReturnsNull() {
         gameStates = niceMock(MongoCollection.class);
-        GameState gameState = new GameState(5, new Board(10, 15));
         FindOne mockFindOne = niceMock(FindOne.class);
         FindOne mockFindOne2 = niceMock(FindOne.class);
         expect(gameStates.findOne())

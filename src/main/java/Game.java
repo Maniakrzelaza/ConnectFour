@@ -63,9 +63,10 @@ public class Game {
                     if(line.contains("s")){
                         this.saveGame();
                     }
-                    if(line.contains("e")){
+                    else if(line.contains("e")){
                         return;
-                    }
+                    } else
+                        throw new IllegalArgumentException();
                 }
 
             } while (this.gameBoard.isLegalMove(column));

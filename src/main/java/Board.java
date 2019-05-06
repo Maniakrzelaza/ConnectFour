@@ -17,7 +17,6 @@ public class Board {
             throw new IllegalArgumentException();
         }
 
-
         this.boardMatrix = new ArrayList<List<Token>>();
 
         for (int i = 0; i < this.width; i++) {
@@ -25,7 +24,6 @@ public class Board {
         }
     }
     public Board(){
-
     }
 
     public void addTokenToBoard(Token token, int posX) {
