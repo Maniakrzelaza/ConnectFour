@@ -174,8 +174,11 @@ public class FakeRepoTests {
         inputs.add(1);
         Queue<String> nexts = new LinkedList<>();
         nexts.add("e");
+        Queue<Boolean> hasNexts = new LinkedList<>();
+        hasNexts.add(false);
         fakeScannerWrapper.nextInts = inputs;
         fakeScannerWrapper.nexts = nexts;
+        fakeScannerWrapper.hasNexts = hasNexts;
         ConnectFour.gameSaver = fakeGameSaver;
         ConnectFour.loadGameFromDb();
         ConnectFour.rankingList = fakeRankingList;
