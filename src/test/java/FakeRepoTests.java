@@ -172,9 +172,11 @@ public class FakeRepoTests {
         inputs.add(0);
         inputs.add(-5);
         inputs.add(1);
+        inputs.add(0);
         Queue<String> nexts = new LinkedList<>();
         nexts.add("e");
         Queue<Boolean> hasNexts = new LinkedList<>();
+        hasNexts.add(true);
         hasNexts.add(false);
         fakeScannerWrapper.nextInts = inputs;
         fakeScannerWrapper.nexts = nexts;
