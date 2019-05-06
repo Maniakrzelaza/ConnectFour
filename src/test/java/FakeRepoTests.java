@@ -182,8 +182,8 @@ public class FakeRepoTests {
         fakeScannerWrapper.nexts = nexts;
         fakeScannerWrapper.hasNexts = hasNexts;
         ConnectFour.gameSaver = fakeGameSaver;
-        ConnectFour.loadGameFromDb();
         ConnectFour.rankingList = fakeRankingList;
+        ConnectFour.loadGameFromDb();
         ConnectFour.game.setRankingList(fakeRankingList);
         ConnectFour.game.reader = fakeScannerWrapper;
         ConnectFour.game.setGameSaver(fakeGameSaver);
