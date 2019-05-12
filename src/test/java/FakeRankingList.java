@@ -1,3 +1,5 @@
+import main.java.IRankingList;
+import main.java.*;
 import java.util.HashMap;
 
 public class FakeRankingList implements IRankingList {

@@ -1,3 +1,5 @@
+package main.java;
+
 public class GameState {
     private int turn;
     private Board board;

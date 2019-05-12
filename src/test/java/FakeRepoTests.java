@@ -1,10 +1,10 @@
+import main.java.*;
 import org.junit.jupiter.api.*;
-
+import main.java.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;

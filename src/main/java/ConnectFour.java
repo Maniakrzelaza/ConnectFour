@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package main.java;
 
 public class ConnectFour {
     public static IScanner reader = new ScannerWrapper();

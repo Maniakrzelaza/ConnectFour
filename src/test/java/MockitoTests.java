@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
-
+import main.java.*;
 public class MockitoTests {
     private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private ByteArrayOutputStream errContent = new ByteArrayOutputStream();

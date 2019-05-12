@@ -1,5 +1,5 @@
 import java.util.Queue;
-
+import main.java.*;
 public class FakeScannerWrapper implements IScanner {
     public Queue<Integer> nextInts;
     public Queue<String> nexts;

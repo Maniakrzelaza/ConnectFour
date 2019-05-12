@@ -1,7 +1,9 @@
 plugins {
     id 'java'
-    
+    id 'application'
 }
+
+mainClassName = 'main.java.ConnectFour'
 apply plugin: 'jacoco'
 group 'com.maniakrzelaza'
 version '1.0-SNAPSHOT'
@@ -11,14 +13,23 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+sourceSets.main.java.srcDirs = ['src']
+project.ext.mainClassName = "main.java.ConnectFour"
 dependencies {
     testImplementation 'org.hamcrest:hamcrest:2.1'
     testImplementation 'org.mockito:mockito-inline:2.13.0'
-    compile "org.mongodb:mongo-java-driver:3.10.2"
-    compile "org.jongo:jongo:1.4.0"
+    compile (
+            'org.junit.jupiter:junit-jupiter-api:5.4.0',
+            'org.assertj:assertj-core:3.11.1',
+            'org.hamcrest:hamcrest:2.1',
+            "org.junit.jupiter:junit-jupiter-params:5.3.2",
+            "org.mockito:mockito-core:2.27.0",
+            "org.easymock:easymock:4.0.2",
+            "org.mongodb:mongo-java-driver:3.10.2",
+            "org.jongo:jongo:1.4.0"
+
+    )
     testCompile(
-            'junit:junit:4.12',
             'org.junit.jupiter:junit-jupiter-api:5.4.0',
             'org.assertj:assertj-core:3.11.1',
             'org.hamcrest:hamcrest:2.1',
@@ -30,7 +41,20 @@ dependencies {
             'org.junit.jupiter:junit-jupiter-engine:5.4.0',
             'org.junit.vintage:junit-vintage-engine:5.4.0'
     )
-
+    test {
+        useJUnitPlatform()
+        testLogging.showStandardStreams = true
+        failFast = false
+        onOutput { descriptor, event ->
+            logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+        }
+        testLogging {
+            events "PASSED", "STARTED", "FAILED", "SKIPPED"
+        }
+    }
+    run{
+        standardInput = System.in
+    }
 }
 jacocoTestReport{
     additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
@@ -44,14 +68,3 @@ jacocoTestReport{
 
 
 
-
-
-
-
-
-
-
-
-test {
-    useJUnitPlatform()
-}

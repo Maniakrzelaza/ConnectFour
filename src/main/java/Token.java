@@ -1,3 +1,5 @@
+package main.java;
+
 public class Token {
     private Character color;
 
